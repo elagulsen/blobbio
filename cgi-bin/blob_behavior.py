@@ -22,14 +22,12 @@ update = open("update.json", "r")
 
 player = {"x" : 3, "y": 17, "radius": 1, "colour": "#FFF0F5", "points" : 0}
 
-blot0= {"x" : 3, "y": 17, "radius": 1, "colour": "#FFD700"}
-blot1= {"x" : 3, "y": 17, "radius": 1, "colour": "#6A5ACD"}
-blot2= {"x" : 3, "y": 17, "radius": 1, "colour": "#3CB371"}
-blot3= {"x" : 3, "y": 17, "radius": 1, "colour": "#BC8F8F"}
-blot4= {"x" : 3, "y": 17, "radius": 1, "colour": "#CD5C5C"}
+blots = [{"x" : 3, "y": 17, "radius": 1, "colour": "#FFD700"}, {"x" : 3, "y": 17, "radius": 1, "colour": "#6A5ACD"},\
+    {"x" : 3, "y": 17, "radius": 1, "colour": "#3CB371"}, {"x" : 3, "y": 17, "radius": 1, "colour": "#BC8F8F"},\
+        {"x" : 3, "y": 17, "radius": 1, "colour": "#CD5C5C"}]
 
-blots = [player, blot0, blot1, blot2, blot3, blot4]
-all_objects = {"player": player, "blot0": blot0, "blot1": blot1, "blot2": blot2, "blot3": blot3, "blot4": blot4 }
+all_objects = {"player": player, "blots": blots}
+
 
 def generate_blobs( number):
     blob = dict()
@@ -47,6 +45,8 @@ def collision( blot):
 
 def move( blot):
     time_init = int(round(time.time() * 1000)) #IN MILLISECONDS
+    temp = blots
+    blots.append(player)
     
     x1,y1 = blot["x"], blot["y"]
     minv = [-1, -1]
