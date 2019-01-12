@@ -13,6 +13,7 @@ INIT_RADIUS = 10
 COLORS = ['#a9b6ff' ,  '#ffa9f9', ' #aeffa9',  '#9e76d1' ,  '#ffd983',  '#a4f1de'] # colors used for blobs
 BLOT_COLORS = ['#6A5ACD', 'FFD700', '#3CB371', '#BC8F8F', '#CD5C5C']
 
+BLOB_NUMBER = 20
 BLOT_NUMBER = 5
 
 sys.stdout.write("Content-type: text/html \r\n\r\n")
@@ -23,7 +24,7 @@ cgitb.enable()
 data = open("data.json", "w")
 update = open("update.json", "r")
 
-player = {"x" : 3, "y": 17, "radius": 1, "colour": "#FFF0F5", "points" : 0}
+player = {"x" : 3, "y": 17, "radius": 25, "colour": "#FFF0F5", "points" : 0}
 
 def generate_blobs( number):
     blobs = []
@@ -34,7 +35,15 @@ def generate_blobs( number):
         blob["colour"] = random.choice(COLORS)
         blob["radius"] = INIT_RADIUS
         blobs.append(blob)
-    return blob
+    return blobs
+
+try:
+    with open('current_blobs.json') as f:
+        blobs = json.load(f)
+except:
+    current_blobs = open("current_blobs.json", "w")
+    blobs = generate_blobs( BLOB_NUMBER)
+    current_blobs.write(json.dumps(blobs))
 
 def generate_blots( number):
     blobs = []
@@ -43,16 +52,12 @@ def generate_blots( number):
         blob["x"] = random.randint(0, CANVAS_WIDTH)
         blob["y"] = random.randint(0, CANVAS_HEIGHT)
         blob["colour"] = random.choice(BLOT_COLORS)
-        blob["radius"] = random.randint(10,20)
+        blob["radius"] = random.randint(20,30)
         blobs.append(blob)
     return blobs
 
 blots = generate_blots( BLOT_NUMBER)
 all_objects = {"player": player, "blots": blots}
-
-def collision( blot):
-    #return true if there is currently a collision
-    return True
 
 def move( blot):
     time_init = int(round(time.time() * 1000)) #IN MILLISECONDS
@@ -71,7 +76,6 @@ def move( blot):
     time_cur = -1
     while( time_cur > time_init + 10):
         time_cur = int(round(time.time() * 1000))
-    
     if minv[0] > -1: #if there is a nearby blot or a player 
         d = random.randint(0, 2)
         if d == 1:
@@ -87,17 +91,21 @@ def move( blot):
     return True
     # ELSE go to the nearest blob to gain radius
 
+def collision( blot):
+    return False
+
 def blot_update( blot):
     if collision( blot):
         player["points"] += 1
         #eat the blob
     move( blot)
 
-while (1):
+def do(): 
     for blot in blots:
         blot_update( blot)
     data.write(json.dumps(all_objects))
-    break
+    
+do()
 
 data.close()
 update.close()
