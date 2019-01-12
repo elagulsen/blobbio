@@ -16,15 +16,30 @@ BLOT_COLORS = ['#6A5ACD', 'FFD700', '#3CB371', '#BC8F8F', '#CD5C5C']
 BLOB_NUMBER = 20
 BLOT_NUMBER = 5
 
-sys.stdout.write("Content-type: text/html \r\n\r\n")
-sys.stdout.write("<!doctype html><html><head><title>Hello CGI</title></head>")
-sys.stdout.write("<body><h2>Hello CGI</h2></body></html>")
 cgitb.enable()
 
 data = open("data.json", "w")
 update = open("update.json", "r")
 
 player = {"x" : 3, "y": 17, "radius": 25, "colour": "#FFF0F5", "points" : 0}
+
+fs = cgi.FieldStorage()
+
+sys.stdout.write("Content-Type: application/json")
+sys.stdout.write("\n")
+sys.stdout.write("\n")
+result = {}
+result['success'] = True
+result['message'] = "The command Completed Successfully"
+result['keys'] = ",".join(fs.keys())
+d = {}
+for k in fs.keys():
+    d[k] = fs.getvalue(k)
+result['data'] = d
+sys.stdout.write(json.dumps(result,indent=1))
+sys.stdout.write("\n")
+sys.stdout.close()
+
 
 def generate_blobs( number):
     blobs = []
