@@ -1,15 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>A simple form demonstration</title>
-</head>
-<body>
-    <div style="text-align:center;">
-        <h1>User login</h1>
-        <form action="/cgi-bin/blob_behavior.py" method="get">
-            <br><br><br>
-            <input type="submit" value="Submit">
-        </form>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Agar.io Clone </title>
+    <link rel="stylesheet" href="index.css">
+</head> 
+
+    <div id="points">0</div>
+    <div id="start_screen">
+        <div class="container">
+        <div class="title">Name:</div>
+        <input type="text" id="name_input">
+        <div id="start">Start</div>
+            </div>
     </div>
+    <canvas id="canvas" width="800" height="800" style="border: 1px solid black; background: #404040">
+
+        </canvas>
+    
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="index.js"></script>
+	<body>
+
 </body>
-</html> 
+</html>

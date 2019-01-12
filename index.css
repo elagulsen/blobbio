@@ -1,0 +1,67 @@
+#points {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 2rem;
+    color: white;
+    z-index: 1;
+    background: black;
+    padding: 1rem;
+}
+
+body {
+    background: black;
+}
+
+#canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#start_screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 400px;
+    width: 400px;
+    z-index: 1;
+    background: lightgray;
+    border-radius: 10px;
+    display: none;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin: 1rem;
+    font-family: Arial;
+}
+
+#name_input {
+    padding: .5rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+#start {
+    height: 20px;
+    width: 50px;
+    border-radius: 10px;
+    background: lime;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.3rem;
+    padding: .7rem;
+    margin: 1rem;
+}

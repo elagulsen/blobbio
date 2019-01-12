@@ -7,8 +7,8 @@ import sys
 import time
 import random
 
-CANVAS_WIDTH = 8000
-CANVAS_HEIGHT = 8000
+CANVAS_WIDTH = 800
+CANVAS_HEIGHT = 800
 INIT_RADIUS = 10
 COLORS = ['#a9b6ff' ,  '#ffa9f9', ' #aeffa9',  '#9e76d1' ,  '#ffd983',  '#a4f1de'] # colors used for blobs
 BLOT_COLORS = ['#6A5ACD', 'FFD700', '#3CB371', '#BC8F8F', '#CD5C5C']
@@ -21,7 +21,7 @@ cgitb.enable()
 data = open("data.json", "w")
 update = open("update.json", "r")
 
-player = {"x" : 3, "y": 17, "radius": 25, "colour": "#FFF0F5", "points" : 0}
+player = {"x" : 400, "y": 400, "radius": 25, "colour": "#FFF0F5", "points" : 0}
 
 fs = cgi.FieldStorage()
 
@@ -42,16 +42,14 @@ sys.stdout.close()
 
 
 def generate_blobs( number):
-    blobs = []
-    for i in range( number+1):
-        blob = dict()
-        blob["x"] = random.randint(0, CANVAS_WIDTH)
-        blob["y"] = random.randint(0, CANVAS_HEIGHT)
-        blob["colour"] = random.choice(COLORS)
-        blob["radius"] = INIT_RADIUS
-        blobs.append(blob)
-    return blobs
-
+    blob = dict()
+    for i in range( number):
+        blob[i] = dict()
+        blob[i]["x"] = random.randint(0, CANVAS_WIDTH)
+        blob[i]["y"] = random.randint(0, CANVAS_HEIGHT)
+        blob[i]["colour"] = random.choice(COLORS)
+        blob[i]["radius"] = INIT_RADIUS
+    return blob
 try:
     with open('current_blobs.json') as f:
         blobs = json.load(f)
@@ -72,7 +70,8 @@ def generate_blots( number):
     return blobs
 
 blots = generate_blots( BLOT_NUMBER)
-all_objects = {"player": player, "blots": blots}
+blobs = generate_blots( 20)
+all_objects = {"player": player, "blots": blots, "blobs": blobs}
 
 def move( blot):
     time_init = int(round(time.time() * 1000)) #IN MILLISECONDS
