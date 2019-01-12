@@ -1,8 +1,17 @@
+#!/usr/bin/env python3
+
 import json
 import cgitb
+import cgi
+import sys
+
+sys.stdout.write("Content-type: text/html \r\n\r\n")
+sys.stdout.write("<!doctype html><html><head><title>Hello CGI</title></head>")
+sys.stdout.write("<body><h2>Hello CGI</h2></body></html>")
 cgitb.enable()
 
 data = open("data.json", "w")
+#update = open("update.json", "r")
 
 player = {"x" : 3, "y": 17, "color": "#FFF0F5", "points" : 0}
 
@@ -31,3 +40,4 @@ while (1):
     break
 
 data.close()
+#update.close()
