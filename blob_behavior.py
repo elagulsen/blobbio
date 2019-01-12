@@ -1,4 +1,6 @@
 import json
+import cgitb
+cgitb.enable()
 
 data = open("data.json", "w")
 
@@ -10,21 +12,22 @@ blot2= {"x" : 3, "y": 17, "color": "#3CB371"}
 blot3= {"x" : 3, "y": 17, "color": "#BC8F8F"}
 blot4= {"x" : 3, "y": 17, "color": "#CD5C5C"}
 
-if_collision():
+blots = [blot0, blot1, blot2, blot3, blot4]
+
+def collision( blot):
     #return true if there is currently a collision
     return True
 
-blot_update():
-    if_collision():
+def blot_update( blot):
+    if collision( blot):
+        player["points"] += 1
         #eat the blob
-        print("yeet")
 
 while (1):
+    for blot_index in range(len(blots)):
+        blot_update( blots[blot_index])
+        data.write(json.dumps( blots[blot_index]))
     data.write(json.dumps(player))
-    data.write(json.dumps(blot0))
-    data.write(json.dumps(blot1))
-    data.write(json.dumps(blot2))
-    data.write(json.dumps(blot3))
-    data.write(json.dumps(blot4))
+    break
 
 data.close()
